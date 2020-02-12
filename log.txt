@@ -10,7 +10,8 @@ Time for minimum job arrival is: 10
 Time for minimum job arrival is: 500
 #------------------------------------------------------------------------------#
 The probability of quit is: 20
-The probability of NETWORK quit is: 30
+#------------------------------------------------------------------------------#
+The probability of NETWORK is: 30
 #------------------------------------------------------------------------------#
 Time for minimum CPU processing is: 5
 #------------------------------------------------------------------------------#

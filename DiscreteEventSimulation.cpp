@@ -156,7 +156,7 @@ int main(){
     writingToLog << "#------------------------------------------------------------------------------#" << endl;
     writingToLog << "The probability of quit is: " << QUIT_PROB << endl;
     writingToLog << "#------------------------------------------------------------------------------#" << endl;
-    writingToLog << "The probability of NETWORK quit is: " << NETWORK_PROB << endl;
+    writingToLog << "The probability of NETWORK is: " << NETWORK_PROB << endl;
     writingToLog << "#------------------------------------------------------------------------------#" << endl;
     writingToLog << "Time for minimum CPU processing is: " << CPU_MIN << endl;
     writingToLog << "#------------------------------------------------------------------------------#" << endl;
