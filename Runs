@@ -1,7 +1,0 @@
-Harith Siddiqui
-
-I tested my outputs by changing the values in config.txt and observing the differences. 
-Changing the SEED from 100 to 1 did not do much except increase the CPU Queue. 
-Decreasing the MINs also had the same impact, except it was more drastic. 
-This makes sense because I am guessing that it meant there was a longer time for the queue to be used/filled up. 
-Raising the MAXs definitely raised up the CPU Queue as well.
