@@ -76,7 +76,7 @@ priority_queue<processStruct, vector<processStruct>, comparisonStruct> qEvents;
 //followed by respective queues for different "devices"
 queue<processStruct> qCPU;
 queue<processStruct> qDiskOne;
-queue<processStruct> qDisk2;
+queue<processStruct> qDiskTwo;
 queue<processStruct> qNetwork;
 
 
@@ -113,7 +113,7 @@ int main(){
     ifstream fileToRead("config.txt");
 
     //Used for indexing objects in the file, and made an array out of the objects in the file
-    int index=0, readValue, configureTextArray[14];
+    int index=0, readValue, configureTextArray[20];
 
     string text;
 
@@ -130,14 +130,15 @@ int main(){
     int ARRIVE_MIN=configureTextArray[3];
     int ARRIVE_MAX=configureTextArray[4];
     int QUIT_PROB=configureTextArray[5];
-    int CPU_MIN=configureTextArray[6];
-    int CPU_MAX=configureTextArray[7];
-    int DISK1_MIN=configureTextArray[8];
-    int DISK1_MAX=configureTextArray[9];
-    int DISK2_MIN=configureTextArray[10];
-    int DISK2_MAX=configureTextArray[11];
-    int NETWORK_MIN=configureTextArray[12];
-    int NETWORK_MAX=configureTextArray[13];
+    int NETWORK_PROB=configureTextArray[6];
+    int CPU_MIN=configureTextArray[7];
+    int CPU_MAX=configureTextArray[8];
+    int DISK1_MIN=configureTextArray[9];
+    int DISK1_MAX=configureTextArray[10];
+    int DISK2_MIN=configureTextArray[11];
+    int DISK2_MAX=configureTextArray[12];
+    int NETWORK_MIN=configureTextArray[13];
+    int NETWORK_MAX=configureTextArray[14];
 
     //Here I open log.txt to display the previous file's contents
     ofstream writingToLog;
@@ -154,6 +155,8 @@ int main(){
     writingToLog << "Time for minimum job arrival is: " << ARRIVE_MAX << endl;
     writingToLog << "#------------------------------------------------------------------------------#" << endl;
     writingToLog << "The probability of quit is: " << QUIT_PROB << endl;
+    writingToLog << "#------------------------------------------------------------------------------#" << endl;
+    writingToLog << "The probability of NETWORK quit is: " << NETWORK_PROB << endl;
     writingToLog << "#------------------------------------------------------------------------------#" << endl;
     writingToLog << "Time for minimum CPU processing is: " << CPU_MIN << endl;
     writingToLog << "#------------------------------------------------------------------------------#" << endl;
@@ -403,10 +406,10 @@ int main(){
         }
         averageTimeForDiskTwo= (DiskTwoTotalTime / NumOfDiskTwoJobs);
         utilForDiskTwo= DiskTwoTotalTime / FIN_TIME;
-        if(qDisk2.size() > qDiskTwoMaxLength) {
-            qDiskTwoMaxLength = qDisk2.size();
+        if(qDiskTwo.size() > qDiskTwoMaxLength) {
+            qDiskTwoMaxLength = qDiskTwo.size();
         }
-        qDiskTwoTotalLength+=qDisk2.size();
+        qDiskTwoTotalLength+=qDiskTwo.size();
         qAverageDiskTwoSize= ((double)qDiskTwoTotalLength / loopCounter);
         throughputForDiskTwo= ((double)NumOfDiskTwoJobs / FIN_TIME);
 
@@ -601,7 +604,7 @@ void completesCpu(int probability){
         qEvents.push(newJobArrives);
     }
         //Check Disk Two, and apply the same logic
-    else if(!DiskTwoNotAvailable && qDisk2.empty()){
+    else if(!DiskTwoNotAvailable && qDiskTwo.empty()){
         processStruct newJobArrives={currentlyExecutingJob.processID, currentlyExecutingJob.time, DiskTwoEnter};
         qEvents.push(newJobArrives);
 
@@ -612,13 +615,13 @@ void completesCpu(int probability){
         qEvents.push(newJobArrives);
     }
         //Use the next couple of else-if statements to check for the shorter queue, and place it into that one.
-    else if(qDiskOne.size() > qDisk2.size()) {
-        qDisk2.push(currentlyExecutingJob);
+    else if(qDiskOne.size() > qDiskTwo.size()) {
+        qDiskTwo.push(currentlyExecutingJob);
     }
-    else if (qDiskOne.size() < qDisk2.size()) {
+    else if (qDiskOne.size() < qDiskTwo.size()) {
         qDiskOne.push(currentlyExecutingJob);
     }
-    else if((qNetwork.size() < qDiskOne.size()) && (qNetwork.size() < qDisk2.size())) {
+    else if((qNetwork.size() < qDiskOne.size()) && (qNetwork.size() < qDiskTwo.size())) {
         qNetwork.push(currentlyExecutingJob);
     }
         //Else, just put it onto the network
@@ -681,9 +684,9 @@ void completesDiskTwo(){
         processStruct newJobArrives={currentlyExecutingJob.processID, currentlyExecutingJob.time, CpuEnter };
         qEvents.push(newJobArrives);
     }
-    if(!qDisk2.empty()){
-        processStruct aJob=qDisk2.front();
-        qDisk2.pop();
+    if(!qDiskTwo.empty()){
+        processStruct aJob=qDiskTwo.front();
+        qDiskTwo.pop();
 
         processStruct newJobArrives={aJob.processID, currentlyExecutingJob.time, DiskTwoEnter };
         qEvents.push(newJobArrives);
