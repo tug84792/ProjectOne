@@ -113,7 +113,7 @@ int main(){
     ifstream fileToRead("config.txt");
 
     //Used for indexing objects in the file, and made an array out of the objects in the file
-    int index=0, readValue, configureTextArray[20];
+    int index=0, readValue, configureTextArray[14];
 
     string text;
 
@@ -130,15 +130,14 @@ int main(){
     int ARRIVE_MIN=configureTextArray[3];
     int ARRIVE_MAX=configureTextArray[4];
     int QUIT_PROB=configureTextArray[5];
-    int NETWORK_PROB=configureTextArray[6];
-    int CPU_MIN=configureTextArray[7];
-    int CPU_MAX=configureTextArray[8];
-    int DISK1_MIN=configureTextArray[9];
-    int DISK1_MAX=configureTextArray[10];
-    int DISK2_MIN=configureTextArray[11];
-    int DISK2_MAX=configureTextArray[12];
-    int NETWORK_MIN=configureTextArray[13];
-    int NETWORK_MAX=configureTextArray[14];
+    int CPU_MIN=configureTextArray[6];
+    int CPU_MAX=configureTextArray[7];
+    int DISK1_MIN=configureTextArray[8];
+    int DISK1_MAX=configureTextArray[9];
+    int DISK2_MIN=configureTextArray[10];
+    int DISK2_MAX=configureTextArray[11];
+    int NETWORK_MIN=configureTextArray[12];
+    int NETWORK_MAX=configureTextArray[13];
 
     //Here I open log.txt to display the previous file's contents
     ofstream writingToLog;
@@ -155,8 +154,6 @@ int main(){
     writingToLog << "Time for minimum job arrival is: " << ARRIVE_MAX << endl;
     writingToLog << "#------------------------------------------------------------------------------#" << endl;
     writingToLog << "The probability of quit is: " << QUIT_PROB << endl;
-    writingToLog << "#------------------------------------------------------------------------------#" << endl;
-    writingToLog << "The probability of NETWORK is: " << NETWORK_PROB << endl;
     writingToLog << "#------------------------------------------------------------------------------#" << endl;
     writingToLog << "Time for minimum CPU processing is: " << CPU_MIN << endl;
     writingToLog << "#------------------------------------------------------------------------------#" << endl;
